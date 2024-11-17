@@ -1,0 +1,9 @@
+{
+  "short_name": "Projeto PWEB",
+  "name": "Projeto Programação WEB",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
