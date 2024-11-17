@@ -45,22 +45,24 @@ const Card = ({ id, card, openCard }) => {
         </button>
       </div>
       <h2>{card.description}</h2>
-      <div className="flex w-full justify-between pt-2">
-        <div className="flex items-center">
-          <BsCalendar2 className="mr-2" />
-          <p>{card.date}</p>
+      <div className="flex w-full justify-between pt-2 items-center">
+        <div className="h-10 overflow-y-scroll px-1 hide-scrollbar"> 
+          {card.owners?.map((o) => (
+            <div className="flex items-center justify-center my-1 py-1 px-4 bg-dark-sky-light rounded-2xl">
+              <p className="text-xs font-semibold text-dark-sky-white">{o}</p>
+            </div>
+          ))}
         </div>
         <div
-          className={`rounded-3xl w-20 py-1 text-sm font-semibold flex items-centes justify-center ${
+          className={`rounded-3xl w-20 py-1 h-fit text-sm font-semibold text-white flex items-center justify-center ${
             prioritiesColors[card.priority]
           } `}
         >
           <p>{priorities[card.priority]}</p>
         </div>
-        <div>
-          {card.owners?.map((o) => (
-            <p>{o}</p>
-          ))}
+        <div className="flex items-center">
+          <BsCalendar2 className="mr-2" />
+          <p>{card.date}</p>
         </div>
       </div>
     </div>
