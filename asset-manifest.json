@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/to-the-stars/static/css/main.65963020.css",
-    "main.js": "/to-the-stars/static/js/main.2003208e.js",
-    "index.html": "/to-the-stars/index.html",
-    "main.65963020.css.map": "/to-the-stars/static/css/main.65963020.css.map",
-    "main.2003208e.js.map": "/to-the-stars/static/js/main.2003208e.js.map"
+    "main.css": "/projeto-pweb/static/css/main.65963020.css",
+    "main.js": "/projeto-pweb/static/js/main.46e03eae.js",
+    "index.html": "/projeto-pweb/index.html",
+    "main.65963020.css.map": "/projeto-pweb/static/css/main.65963020.css.map",
+    "main.46e03eae.js.map": "/projeto-pweb/static/js/main.46e03eae.js.map"
   },
   "entrypoints": [
     "static/css/main.65963020.css",
-    "static/js/main.2003208e.js"
+    "static/js/main.46e03eae.js"
   ]
 }
