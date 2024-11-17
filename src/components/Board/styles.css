@@ -1,0 +1,8 @@
+.cards-list::-webkit-scrollbar {
+  display: none;
+}
+
+.cards-list {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
