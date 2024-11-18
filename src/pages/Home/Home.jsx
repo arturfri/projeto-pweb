@@ -25,7 +25,9 @@ const Home = () => {
     DONE: [],
   });
 
-  const [motivationalPhrase, setMotivacionalPhrase] = useState('Escreva uma frase que te ajude a alcançar as estrelas...');
+  const [motivationalPhrase, setMotivacionalPhrase] = useState(
+    "Escreva uma frase que te ajude a alcançar as estrelas..."
+  );
 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState(null);
@@ -67,7 +69,7 @@ const Home = () => {
       const temp = { ...prevCardsList };
 
       if (!targetContainer) {
-        if (!!prevCardsList[e.over.id].find((t) => t.id === e.active.id)) {
+        if (!!prevCardsList[e.over?.id].find((t) => t.id === e.active?.id)) {
           return temp;
         }
         const item = temp[initialContainer].find((c) => c.id === e.active.id);
@@ -87,7 +89,6 @@ const Home = () => {
         const newIdx = temp[initialContainer].findIndex(
           (c) => c.id === e.over.id
         );
-        console.log({ oldIdx, newIdx });
         temp[initialContainer] = arrayMove(
           temp[initialContainer],
           oldIdx,
@@ -95,17 +96,19 @@ const Home = () => {
         );
       } else {
         const item = temp[initialContainer].find((c) => c.id === e.active.id);
-        temp[initialContainer] = temp[initialContainer].filter(
-          (task) => task.id !== e.active.id
-        );
+        if (!!item) {
+          temp[initialContainer] = temp[initialContainer].filter(
+            (task) => task.id !== e.active.id
+          );
 
-        const newIdx = temp[targetContainer].findIndex(
-          (c) => c.id === e.over.id
-        );
-        temp[targetContainer] = temp[targetContainer].filter(
-          (c) => c.id !== item.id
-        );
-        temp[targetContainer].splice(newIdx, 0, item);
+          const newIdx = temp[targetContainer].findIndex(
+            (c) => c.id === e.over.id
+          );
+          temp[targetContainer] = temp[targetContainer].filter(
+            (c) => c.id !== item.id
+          );
+          temp[targetContainer].splice(newIdx, 0, item);
+        }
       }
       return temp;
     });
@@ -133,8 +136,7 @@ const Home = () => {
   const initializeDB = async () => {
     try {
       const result = await initDB();
-      console.log({ result });
-      if (result) {
+      if (result.success) {
         getCardsAsync();
       }
     } catch (error) {
@@ -143,17 +145,15 @@ const Home = () => {
   };
 
   const getMotivationalPhrase = () => {
-    const phrase = localStorage.getItem('motivationalPhrase');
-    console.log({phrase})
-    if(phrase){
+    const phrase = localStorage.getItem("motivationalPhrase");
+    if (phrase) {
       setMotivacionalPhrase(phrase);
     }
-  }
+  };
 
   const saveMotivationalPhrase = async () => {
-    console.log('saveMotivationalPhrase')
-    localStorage.setItem('motivationalPhrase', motivationalPhrase);
-  }
+    localStorage.setItem("motivationalPhrase", motivationalPhrase);
+  };
 
   useEffect(() => {
     initializeDB();
@@ -164,16 +164,15 @@ const Home = () => {
     setTimeout(() => {
       saveMotivationalPhrase();
     }, 2000);
-  }, [motivationalPhrase])
+  }, [motivationalPhrase]);
 
   const handleSubmitCard = async () => {
     const card = createCardRef.current?.getCardData();
-    
+
     try {
       const result = !!selectedCard
         ? await updateData(storeName, card)
         : await addData(storeName, card);
-      console.log({ result });
       if (result.success) {
         closeModal();
         getCardsAsync();
@@ -223,10 +222,11 @@ const Home = () => {
         </button>
       </div>
       <div className="h-40 min-h-38 border bg-dark-sky-light/40 border-slate-500 mx-2 rounded">
-        <input 
-        value={motivationalPhrase}
-        onChange={(e) => setMotivacionalPhrase(e.target.value)}
-        className="w-full h-full bg-transparent text-white flex items-center justify-center text-center text-3xl outline-none focus:outline-none"  />
+        <input
+          value={motivationalPhrase}
+          onChange={(e) => setMotivacionalPhrase(e.target.value)}
+          className="w-full h-full bg-transparent text-white flex items-center justify-center text-center text-3xl outline-none focus:outline-none"
+        />
       </div>
       <div className="w-full h-[70vh] flex">
         <DndContext
