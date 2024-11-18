@@ -25,6 +25,8 @@ const Home = () => {
     DONE: [],
   });
 
+  const [motivationalPhrase, setMotivacionalPhrase] = useState('Escreva uma frase que te ajude a alcançar as estrelas...');
+
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
@@ -140,9 +142,29 @@ const Home = () => {
     }
   };
 
+  const getMotivationalPhrase = () => {
+    const phrase = localStorage.getItem('motivationalPhrase');
+    console.log({phrase})
+    if(phrase){
+      setMotivacionalPhrase(phrase);
+    }
+  }
+
+  const saveMotivationalPhrase = async () => {
+    console.log('saveMotivationalPhrase')
+    localStorage.setItem('motivationalPhrase', motivationalPhrase);
+  }
+
   useEffect(() => {
     initializeDB();
+    getMotivationalPhrase();
   }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      saveMotivationalPhrase();
+    }, 2000);
+  }, [motivationalPhrase])
 
   const handleSubmitCard = async () => {
     const card = createCardRef.current?.getCardData();
@@ -200,7 +222,12 @@ const Home = () => {
           Criar tarefa
         </button>
       </div>
-      <div className="h-40 min-h-38 border bg-dark-sky-light/40 border-slate-500 mx-2 rounded"></div>
+      <div className="h-40 min-h-38 border bg-dark-sky-light/40 border-slate-500 mx-2 rounded">
+        <input 
+        value={motivationalPhrase}
+        onChange={(e) => setMotivacionalPhrase(e.target.value)}
+        className="w-full h-full bg-transparent text-white flex items-center justify-center text-center text-3xl outline-none focus:outline-none"  />
+      </div>
       <div className="w-full h-[70vh] flex">
         <DndContext
           onDragEnd={dragEndHandler}
