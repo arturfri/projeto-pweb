@@ -4,7 +4,7 @@ const IGNORE_TAGS = ["BUTTON"];
 
 const customHandleEvent = (element) => {
   let cur = element;
-  console.log({cur})
+  
   while (cur) {
     if (IGNORE_TAGS.includes(cur.tagName) || cur.dataset.noDnd) {
       return false;
